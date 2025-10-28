@@ -18,13 +18,17 @@
             width:400px;
             background:#fff;
             margin-top:-10px;
+            text-align:center;
         }
         .image-section{
-            text-align:center;
             padding-top:10px;
+            display:inline-block;
         }
         .image-section img{
-            max-width:180px;height:auto;
+            width:320px;                    /* Matches input width */
+            height:auto;
+            max-height:120px;
+            object-fit:contain;
         }
 
         /* Form wrapper – 400 × 560 px container */
@@ -39,7 +43,7 @@
             flex-direction:column;
         }
 
-        /* Side borders – from below logo to bottom */
+        /* Side borders – full height */
         .side-borders{
             position:absolute;
             top:0;
@@ -50,7 +54,7 @@
         .left-border  { left:0; }
         .right-border { right:0; }
 
-        /* Bottom border only */
+        /* Bottom border – the line */
         .bottom-border{
             position:absolute;
             bottom:0; left:0; right:0;
@@ -58,7 +62,7 @@
             background:#ddd;
         }
 
-        /* Form content – centered in 560px height */
+        /* Form content */
         .login-container{
             padding:0 40px 40px;
             text-align:center;
@@ -70,7 +74,7 @@
             z-index:1;
         }
 
-        /* Input fields — 320px wide, centered */
+        /* Input fields — 320px wide */
         .login-container input{
             width:320px;
             height:48px;
@@ -85,7 +89,6 @@
             color:#000;
             box-sizing:border-box;
         }
-
         .login-container input::placeholder {
             color:#AAAAAA;
         }
@@ -93,19 +96,19 @@
         /* Username – 40px from logo */
         #username {
             margin-top:40px;
-            margin-bottom:30px;             /* → Password: 30px */
+            margin-bottom:30px;
         }
 
-        /* Password → Login: 40px */
+        /* Password to Login: 50px */
         #password {
-            margin-bottom:40px;
+            margin-bottom:50px;
         }
 
         .login-container button{
             width:320px;
             height:48px;
             padding:0;
-            margin:0 auto 50px;             /* → "Click here...": 50px */
+            margin:0 auto 70px;
             background:#4CAF50;
             border:1px solid #45a049;
             border-radius:8px;
@@ -119,21 +122,25 @@
         }
         .login-container button:hover{background:#45a049;}
 
+        /* "Click here..." link — 30px to bottom border */
         .login-container a{
             display:block;
             width:320px;
-            margin:0 auto 20px;             /* → Footer: 20px */
+            margin:0 auto 30px;
             color:#4a4a4a;text-decoration:none;
             font-size:.85em;
             cursor:pointer;
             text-align:center;
         }
 
+        /* Footer — 30px below the bottom border */
         .footer{
-            text-align:center;color:#4a4a4a;
-            margin-top:20px;                /* Bottom border → Footer: 20px */
+            text-align:center;
+            color:#4a4a4a;
+            margin-top:30px;
             padding:6px 0;
-            font-size:.85em;width:100%;
+            font-size:.85em;
+            width:400px;
         }
         #message,#error{display:none;}
     </style>
@@ -165,6 +172,7 @@
         </div>
     </div>
 
+    <!-- Footer — 30px below the bottom border -->
     <div class="footer">
         Curiosity : Leadership : Accountability : Innovation : Responsible Citizenship : Excellence
     </div>
@@ -189,7 +197,6 @@
             }catch(e){ return false; }
         }
 
-        // Login button → requires fields
         form.addEventListener('submit', async e=>{
             e.preventDefault();
             const u = document.getElementById('username').value;
@@ -199,7 +206,6 @@
             }
         });
 
-        // User Portal link → works even if empty
         userPortalLink.addEventListener('click', async e=>{
             e.preventDefault();
             const u = document.getElementById('username').value;
